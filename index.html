@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programme de Parrainage – Studio Nara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --nara-bg-1: #04070D;
+      --nara-bg-2: #10131C;
+      --nara-text-1: #D5DBE6;
+      --nara-text-2: #B8C7D9;
+      --nara-blue-900: #00094C;
+      --nara-blue-800: #003BFF;
+      --nara-blue-700: #194EFF;
+      --nara-blue-600: #3362FF;
+      --nara-blue-400: #6689FF;
+      --nara-blue-100: #EFF3FF;
+      --nara-border: #232D6B;
+      --nara-muted: #575F75;
+      --radius-xl: 1.25rem;
+      --radius-lg: .875rem;
+      --shadow-soft: 0 10px 30px rgba(0,0,0,.35);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: "Rethink Sans", sans-serif;
+      background: var(--nara-bg-1);
+      color: var(--nara-text-1);
+      line-height: 1.6;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(16px,4vw,40px);
+    }
+    header {
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at top left, var(--nara-blue-900), var(--nara-bg-1));
+      color: var(--nara-text-1);
+    }
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,.12) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: .12;
+      pointer-events: none;
+    }
+    .hero {
+      padding: 96px 0;
+    }
+    h1 {
+      font-weight: 900;
+      font-size: clamp(2.25rem,5vw,3.5rem);
+      line-height: 1.1;
+      margin: 0 0 24px;
+      color: #fff;
+    }
+    .txt-blue { color: var(--nara-blue-600); }
+    p.lead {
+      max-width: 720px;
+      font-size: 1.125rem;
+      color: var(--nara-text-2);
+      margin-bottom: 32px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: var(--radius-xl);
+      font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border .2s ease;
+    }
+    .btn-primary {
+      background: var(--nara-blue-600);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(90deg, var(--nara-blue-700), var(--nara-blue-800));
+      transform: translateY(-1px);
+    }
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--nara-blue-400);
+      outline-offset: 2px;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--nara-border);
+      color: var(--nara-text-1);
+    }
+    .btn-secondary:hover {
+      border-color: var(--nara-blue-600);
+      background: rgba(51,98,255,.08);
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(51,98,255,.12);
+      color: var(--nara-blue-400);
+      border-radius: 9999px;
+      padding: 4px 12px;
+      font-size: .875rem;
+    }
+    .social-bar {
+      position: absolute;
+      right: clamp(16px,4vw,40px);
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .social-bar a {
+      width: 32px; height: 32px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--nara-border);
+      border-radius: 50%;
+      color: var(--nara-text-1);
+    }
+    section {
+      padding: 96px 0;
+    }
+    section:nth-of-type(even) {
+      background: var(--nara-bg-2);
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 24px;
+    }
+    .step-card {
+      background: #0A0C1E;
+      border: 1px solid var(--nara-border);
+      border-radius: var(--radius-xl);
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
+    }
+    .step-icon {
+      width: 56px; height: 56px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: var(--nara-blue-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 32px;
+    }
+    th, td {
+      padding: 16px;
+      border: 1px solid var(--nara-border);
+    }
+    th {
+      background: var(--nara-blue-900);
+      text-align: left;
+    }
+    .cards-row {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .card {
+      background: #0A0C1E;
+      border: 1px solid var(--nara-border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
+    }
+    .disclaimer {
+      font-size: .875rem;
+      color: var(--nara-muted);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 12px 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .features li {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .cta-block {
+      background: linear-gradient(90deg, var(--nara-blue-700), var(--nara-blue-800));
+      color: #fff;
+      text-align: center;
+      border-radius: var(--radius-xl);
+      padding: 64px 24px;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--nara-border);
+    }
+    .faq-item button {
+      width: 100%;
+      background: none;
+      color: inherit;
+      text-align: left;
+      padding: 24px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .faq-item button:focus-visible {
+      outline: 2px solid var(--nara-blue-400);
+      outline-offset: 2px;
+    }
+    .faq-item div {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+      padding: 0 24px;
+    }
+    .faq-item[aria-expanded="true"] div {
+      max-height: 500px;
+      padding-bottom: 16px;
+    }
+    footer {
+      background: var(--nara-bg-2);
+      text-align: center;
+      padding: 32px;
+      font-size: .875rem;
+    }
+    .fade {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeRise .4s ease forwards;
+      animation-delay: calc(var(--delay) * 60ms);
+    }
+    @keyframes fadeRise {
+      to {opacity:1; transform: translateY(0);}
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade, .step-card, .card, .btn {transition: none; animation: none;}
+    }
+    @media (max-width: 1024px) {
+      .steps {grid-template-columns: repeat(2,1fr);}
+      .cards-row {grid-template-columns: repeat(2,1fr);}
+    }
+    @media (max-width: 768px) {
+      .steps {grid-template-columns: 1fr;}
+      .cards-row {grid-template-columns: 1fr;}
+      section {padding: 64px 0;}
+    }
+    @media (max-width: 480px) {
+      .btn-group {flex-direction: column;}
+      .social-bar {display: none;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container hero">
+      <h1 class="fade" style="--delay:0">Gagnez en parrainant avec <span class="txt-blue">Studio Nara</span></h1>
+      <p class="lead fade" style="--delay:1">Rejoignez notre programme de parrainage exclusif et transformez votre réseau en source de revenus. Gagnez jusqu'à 15% de commission sur chaque projet réalisé.</p>
+      <div class="btn-group fade" style="--delay:2">
+        <a href="#cta" class="btn btn-primary" aria-label="Devenir Parrain">Devenir Parrain</a>
+        <a href="#faq" class="btn btn-secondary" aria-label="En savoir plus">En savoir plus</a>
+      </div>
+      <div class="fade" style="--delay:3"><span class="badge">✅ Offre de lancement : double commission sur vos 3 premiers parrainages.</span></div>
+      <div class="social-bar" aria-hidden="true">
+        <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4.01c-.77.35-1.6.59-2.47.69A4.15 4.15 0 0 0 21.4 2.5a8.19 8.19 0 0 1-2.6 1 4.1 4.1 0 0 0-7 3.74 11.65 11.65 0 0 1-8.46-4.29 4.1 4.1 0 0 0 1.27 5.48 4.07 4.07 0 0 1-1.86-.51v.05a4.1 4.1 0 0 0 3.29 4.02 4.1 4.1 0 0 1-1.85.07 4.1 4.1 0 0 0 3.84 2.86A8.24 8.24 0 0 1 2 18.54a11.63 11.63 0 0 0 6.29 1.84c7.55 0 11.69-6.26 11.69-11.69 0-.18 0-.35-.01-.53A8.36 8.36 0 0 0 22 4.01z"/></svg></a>
+        <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 0 0 20 10 10 0 0 0 0-20zm3.95 6.12a3.25 3.25 0 0 1 1.9 1.9M6.05 15.88a3.25 3.25 0 0 1-1.9-1.9M8.7 8.7a3.25 3.25 0 0 1 6.6 0 3.25 3.25 0 0 1-6.6 0zm6.6 6.6a3.25 3.25 0 0 1-6.6 0 3.25 3.25 0 0 1 6.6 0z"/></svg></a>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section>
+      <div class="container">
+        <h2 class="fade" style="--delay:0">Comment ça marche ?</h2>
+        <div class="steps">
+          <div class="step-card fade" style="--delay:1">
+            <div class="step-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 2v4H8V2M5 8h14l-1 14H6L5 8z"/></svg></div>
+            <h3>Inscrivez‑vous en 2 minutes.</h3>
+            <p class="small">Rapide et gratuit, avec un simple formulaire.</p>
+          </div>
+          <div class="step-card fade" style="--delay:2">
+            <div class="step-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="m22 2-7 20-4-9-9-4Z"/></svg></div>
+            <h3>Partagez votre lien de parrainage unique.</h3>
+            <p class="small">Diffusez-le auprès de votre réseau.</p>
+          </div>
+          <div class="step-card fade" style="--delay:3">
+            <div class="step-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <h3>Votre contact réserve un appel stratégique.</h3>
+            <p class="small">Nous prenons le relais et convertissons.</p>
+          </div>
+          <div class="step-card fade" style="--delay:4">
+            <div class="step-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M5 8h14"/></svg></div>
+            <h3>Vous êtes payé dès la signature.</h3>
+            <p class="small">Virement mensuel selon vos gains.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <h2 class="fade" style="--delay:0">Commissions &amp; exemples</h2>
+        <table class="fade" style="--delay:1">
+          <thead>
+            <tr><th>Palier</th><th>Condition (90j)</th><th>Commission</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Niveau 1</td><td>1–2 projets</td><td>5%</td></tr>
+            <tr><td>Niveau 2</td><td>3–5 projets</td><td>10%</td></tr>
+            <tr><td>Niveau 3</td><td>6+ projets</td><td>15%</td></tr>
+          </tbody>
+        </table>
+        <div class="cards-row">
+          <div class="card fade" style="--delay:2">
+            <h3>Site “Lancer” 900€</h3>
+            <p>Commission: 45€ / 90€ / 135€</p>
+          </div>
+          <div class="card fade" style="--delay:3">
+            <h3>“Déployer” 1740€</h3>
+            <p>Commission: 87€ / 174€ / 261€</p>
+          </div>
+          <div class="card fade" style="--delay:4">
+            <h3>“Dominer” 3000€+</h3>
+            <p>Commission: 150€ / 300€ / 450€+</p>
+          </div>
+        </div>
+        <p class="disclaimer fade" style="--delay:5">*Commissions soumises à conditions. Gains indicatifs.</p>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <h2 class="fade" style="--delay:0">Pourquoi nous recommander ?</h2>
+        <ul class="features">
+          <li class="fade" style="--delay:1"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 7 4-7 4-7-4 7-4z"/><path d="M5 10v4a2 2 0 0 0 1 1.73L12 18l6-3.27A2 2 0 0 0 19 14v-4"/></svg> Design premium</li>
+          <li class="fade" style="--delay:2"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v4H3z"/><path d="M3 9h18v12H3z"/><path d="M7 13h10"/></svg> SEO intégré</li>
+          <li class="fade" style="--delay:3"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M12 6v6l4 2"/></svg> Abonnement simple</li>
+          <li class="fade" style="--delay:4"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 10c0 7-7 12-7 12S5 17 5 10a7 7 0 0 1 14 0Z"/><circle cx="12" cy="10" r="3"/></svg> Taux de satisfaction</li>
+          <li class="fade" style="--delay:5"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Délai moyen de livraison</li>
+          <li class="fade" style="--delay:6"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg> Support dédié</li>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <div class="container">
+        <div class="cta-block fade" id="cta">
+          <h2>Prêt à commencer ?</h2>
+          <p>+32 partenaires actifs · NPS 63</p>
+          <a href="#" class="btn btn-primary" aria-label="Devenir Parrain">Devenir Parrain</a>
+        </div>
+      </div>
+    </section>
+    <section id="faq">
+      <div class="container">
+        <h2 class="fade" style="--delay:0">FAQ</h2>
+        <div class="faq">
+          <div class="faq-item fade" style="--delay:1" aria-expanded="false">
+            <button aria-expanded="false">Comment fonctionne le suivi de mes parrainages ?<span>+</span></button>
+            <div>
+              <p>Un tableau de bord dédié vous permet de suivre chaque lead et l'état de sa conversion.</p>
+            </div>
+          </div>
+          <div class="faq-item fade" style="--delay:2" aria-expanded="false">
+            <button aria-expanded="false">Quand et comment suis‑je payé ?<span>+</span></button>
+            <div>
+              <p>Les paiements sont effectués par virement mensuel après validation du projet.</p>
+            </div>
+          </div>
+          <div class="faq-item fade" style="--delay:3" aria-expanded="false">
+            <button aria-expanded="false">Y a‑t‑il un minimum de montant ?<span>+</span></button>
+            <div>
+              <p>Aucun minimum requis, nous versons ce que vous gagnez.</p>
+            </div>
+          </div>
+          <div class="faq-item fade" style="--delay:4" aria-expanded="false">
+            <button aria-expanded="false">Mon lien expire‑t‑il ?<span>+</span></button>
+            <div>
+              <p>Votre lien reste actif tant que le programme est ouvert.</p>
+            </div>
+          </div>
+          <div class="faq-item fade" style="--delay:5" aria-expanded="false">
+            <button aria-expanded="false">Puis‑je parrainer une entreprise où je travaille ?<span>+</span></button>
+            <div>
+              <p>Oui, tant que vous avez l'accord nécessaire au sein de l'entreprise.</p>
+            </div>
+          </div>
+          <div class="faq-item fade" style="--delay:6" aria-expanded="false">
+            <button aria-expanded="false">Que se passe‑t‑il si le lead existait déjà dans votre CRM ?<span>+</span></button>
+            <div>
+              <p>Nous vous informons et il ne sera pas comptabilisé comme parrainage.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>© 2024 Studio Nara · <a href="#">Mentions légales</a> · <a href="#">Contact</a> · <a href="#">CGU Parrainage</a></p>
+  </footer>
+  <script>
+    document.querySelectorAll('.faq-item button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const expanded = item.getAttribute('aria-expanded') === 'true';
+        item.setAttribute('aria-expanded', !expanded);
+        btn.setAttribute('aria-expanded', !expanded);
+        btn.querySelector('span').textContent = expanded ? '+' : '−';
+      });
+    });
+  </script>
+</body>
+</html>
